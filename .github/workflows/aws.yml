@@ -41,7 +41,7 @@ jobs:
             rm -rf app && mkdir app
             cd app
           EOF
-          scp -o StrictHostKeyChecking=no -i key.pem Dockerfile app.py requirements.txt $USER@$HOST:/home/ubuntu/app/
+          scp -o StrictHostKeyChecking=no -i key.pem dockerfile app.py requirements.txt $USER@$HOST:/home/ubuntu/app/
           ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << 'EOF'
             cd /home/ubuntu/app
             docker build -t drviki-app .
