@@ -1,0 +1,49 @@
+name: CI/CD - DrViKi App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t drviki-app .
+
+      - name: Run container & test endpoint
+        run: |
+          docker run -d -p 8080:8080 --name drviki-test drviki-app
+          sleep 5
+          curl -f http://localhost:8080 || (docker logs drviki-test && exit 1)
+          docker stop drviki-test
+
+      - name: Deploy to AWS EC2
+        if: github.ref == 'refs/heads/main'
+        env:
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ubuntu
+          KEY: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          echo "$KEY" > key.pem
+          chmod 600 key.pem
+          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << 'EOF'
+            docker rm -f drviki-app || true
+            cd /home/ubuntu
+            rm -rf app && mkdir app
+            cd app
+          EOF
+          scp -o StrictHostKeyChecking=no -i key.pem Dockerfile app.py requirements.txt $USER@$HOST:/home/ubuntu/app/
+          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << 'EOF'
+            cd /home/ubuntu/app
+            docker build -t drviki-app .
+            docker run -d -p 8080:8080 --name drviki-app drviki-app
+          EOF
