@@ -67,7 +67,7 @@ The workflow also include a healthcheck curl endpoint working.
 * Verified endpoints:
 
 ```
-Home: http://<EC2_PUBLIC_IP>:8080/
+Home: http://13.60.49.84:8080/
 ```
 <img width="940" height="507" alt="image" src="https://github.com/user-attachments/assets/7f67550e-aef4-4e08-a10b-234788436cc2" />
 
@@ -94,7 +94,7 @@ Home: http://<EC2_PUBLIC_IP>:8080/
 trivy image drviki-app
 ```
 
-* **Security**: Image scanning with Trivy reduces known vulnerabilities.
+* **Security**: Image scanning with Trivy.
 <img width="940" height="529" alt="image" src="https://github.com/user-attachments/assets/bc0fb3b2-b740-43bb-acde-1b3393276d8b" />
 <img width="940" height="528" alt="image" src="https://github.com/user-attachments/assets/471c28e3-fa2a-43f5-9695-f584f78fefa8" />
 
