@@ -30,15 +30,15 @@ The application is containerized with Docker and deployed on AWS EC2 using GitHu
 ```bash
 docker build -t drviki-app .
 ````
+<img width="940" height="505" alt="image" src="https://github.com/user-attachments/assets/7f1295c9-3764-48fa-9104-84d01fd44130" />
 
-* Tested the container locally on `localhost:8080`:
 
 ```bash
 docker run -d -p 8080:8080 --name drviki-app drviki-app
 curl http://localhost:8080
 ```
 <img width="938" height="495" alt="image" src="https://github.com/user-attachments/assets/7c4f58f4-a24d-442f-84ff-c51012201236" />
-
+* Tested the container locally on `localhost:8080`:
 
 ---
 
