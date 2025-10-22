@@ -54,7 +54,8 @@ Created a workflow in `.github/workflows/aws.yml` to automate CI/CD:
 4. Deploy to EC2 instance using SSH and SCP.
 5. Replace the previous container if running.
 
-This ensures seamless, automated deployment whenever code is pushed to `main`.
+This ensures seamless, automated deployment whenever code is pushed to `main`. 
+The environmnet variables are stored as secrets in github repository.
 <img width="940" height="445" alt="image" src="https://github.com/user-attachments/assets/7cdbc4d7-dac0-4fd2-80e6-3c2c66eadafe" />
 
 The workflow also include a healthcheck curl endpoint working.
@@ -75,7 +76,7 @@ Home: http://13.60.49.84:8080/
 
 ### 4. Monitoring
 
-* **AWS CloudWatch**: Monitors EC2 metrics and alarms. Also configured an sns topic such that the I receive any alerts thhrough email first whenever our instnace is down.
+* **AWS CloudWatch**: Monitors EC2 important ec2 metrics and alarms. Also configured an sns topic to StatusCheckFailed alarm such that the I receive any alerts through email first whenever our instnace is down.
 * **UptimeRobot**: Checks `/healthz` endpoint to ensure the application is online.
 <img width="940" height="440" alt="image" src="https://github.com/user-attachments/assets/42c9a07b-a265-489b-8413-f026f7a18e84" />
 <img width="940" height="236" alt="image" src="https://github.com/user-attachments/assets/93425f16-74b5-4f25-a420-acf5b95ebc7a" />
